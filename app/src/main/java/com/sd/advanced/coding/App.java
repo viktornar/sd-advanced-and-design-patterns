@@ -23,17 +23,17 @@ public class App {
             String example = arguments.get(EXAMPLE_ARG);
             new App().runExample(example);
         } else {
-            System.out.printf("--%s - was not specified. Usage example: --%s [exercise number] . Program will be terminated%n", EXERCISE_ARG, EXERCISE_ARG);
+            System.out.printf("--%s - was not specified. Usage example: --%s [exercise number]. Program will be terminated%n", EXERCISE_ARG, EXERCISE_ARG);
             System.out.println("or");
-            System.out.printf("--%s - was not specified. Usage example: --%s [example number] . Program will be terminated%n", EXAMPLE_ARG, EXAMPLE_ARG);
-            System.exit(1);
+            System.out.printf("--%s - was not specified. Usage example: --%s [example number]. Program will be terminated%n", EXAMPLE_ARG, EXAMPLE_ARG);
+            System.exit(0);
         }
     }
 
     public void runExercise(int exerciseNumber) {
         System.out.printf("Will run exercise: %d%n", exerciseNumber);
 
-        switch(exerciseNumber) {
+        switch (exerciseNumber) {
             case 1: {
                 new Exercise1().run();
                 break;
@@ -66,7 +66,7 @@ public class App {
     public void runExample(String exampleName) throws InterruptedException {
         System.out.printf("Will run example: %s%n", exampleName);
 
-        switch(exampleName) {
+        switch (exampleName) {
             case "threads": {
                 new ExampleThreads().run();
                 break;
@@ -85,6 +85,10 @@ public class App {
             }
             case "aggregators": {
                 new ExampleAggregators().run();
+                break;
+            }
+            case "encapsulation": {
+                new ExampleEncapsulation().run();
                 break;
             }
             default:
