@@ -1,6 +1,5 @@
 package com.sd.advanced.coding.exercises;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -14,6 +13,7 @@ public class Exercise1 implements Exercise {
     public void run() {
         List<String> listToSort = Arrays.asList(
                 "Jonas",
+                "jaunas",
                 "Benas",
                 "Vitalijus",
                 "Zebra"
@@ -26,5 +26,17 @@ public class Exercise1 implements Exercise {
 
     private void sortDescString(final List<String> listToSort) {
         listToSort.sort(Comparator.reverseOrder());
+        /*
+        listToSort.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o2.compareTo(o1);
+            }
+        });
+        */
+
+        /*
+        listToSort.sort((o1, o2) -> o2.compareTo(o1));
+        */
     }
 }

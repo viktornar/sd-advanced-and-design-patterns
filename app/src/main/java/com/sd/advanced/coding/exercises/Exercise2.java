@@ -1,7 +1,6 @@
 package com.sd.advanced.coding.exercises;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 /*
@@ -19,18 +18,20 @@ public class Exercise2 implements Exercise {
                 "Vitalijus",
                 "Zebra"
         );
-
         sortDescStringIgnoreCase(listToSort);
 
         System.out.println(listToSort);
     }
 
-    private void sortDescStringIgnoreCase(List<String> listToSort) {
+    private void sortDescStringIgnoreCase(final List<String> listToSort) {
+        listToSort.sort((o1, o2) -> o2.toLowerCase().compareTo(o1.toLowerCase()));
+        /*
         listToSort.sort(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
                 return o2.toLowerCase().compareTo(o1.toLowerCase());
             }
         });
+        */
     }
 }
