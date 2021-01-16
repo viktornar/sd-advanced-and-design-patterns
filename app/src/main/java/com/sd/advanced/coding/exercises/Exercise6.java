@@ -2,6 +2,7 @@ package com.sd.advanced.coding.exercises;
 
 import com.sd.advanced.coding.util.FileUtil;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,19 +18,14 @@ public class Exercise6 implements Exercise {
 
         Map<String, Integer> wordCounter = new HashMap<>();
 
-        for (String line: lines) {
-            String[] words = line.split(" ");
-            for (String w: words) {
-                if (wordCounter.containsKey(w)) {
-                    wordCounter.put(w, wordCounter.get(w) + 1);
-                } else {
-                    wordCounter.put(w, 1);
-                }
+        lines.stream().flatMap(l -> Arrays.stream(l.split(" "))).forEach((w) -> {
+            if (wordCounter.containsKey(w)) {
+                wordCounter.put(w, wordCounter.get(w) + 1);
+            } else {
+                wordCounter.put(w, 1);
             }
-        }
+        });
 
-        for (Map.Entry<String, Integer> e: wordCounter.entrySet()) {
-            System.out.printf("Word: %s - count: %d%n", e.getKey(), e.getValue());
-        }
+        wordCounter.forEach((key, value) -> System.out.printf("%s: %d%n", key, value));
     }
 }

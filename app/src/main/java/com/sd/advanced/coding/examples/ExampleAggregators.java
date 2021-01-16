@@ -13,6 +13,24 @@ public class ExampleAggregators implements Example {
             add(new Person(30, "Gustav", "Klaud", "gustav.klaud@gmail.com", Person.Sex.MALE));
             add(new Person(30, "Augustina", "Klaud", "augustina.klaud@gmail.com", Person.Sex.FEMALE));
         }};
+
+        roster.forEach(e -> System.out.println(e.getName()));
+
+        roster.stream().filter((p) -> p.getAge() > 22).forEach(Person::printPerson);
+
+        roster
+                .stream()
+                .filter(p -> p.getGender() == Person.Sex.MALE)
+                .forEach(p -> System.out.println(p.getName()));
+
+        double average = roster
+                .stream()
+                .filter(p -> p.getGender() == Person.Sex.MALE)
+                .mapToInt(Person::getAge)
+                .average()
+                .getAsDouble();
+
+        System.out.printf("Average age: %.2f%n", average);
     }
 
     private static class Person {
