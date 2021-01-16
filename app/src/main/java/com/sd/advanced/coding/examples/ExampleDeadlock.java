@@ -9,6 +9,14 @@ public class ExampleDeadlock implements Example {
     public void run() throws InterruptedException {
         final Friend alphonse = new Friend("Alphonse");
         final Friend gaston = new Friend("Gaston");
+
+        Thread t1 = new Thread(() -> alphonse.bow(gaston));
+        Thread t2 = new Thread(() -> gaston.bow(alphonse));
+
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
     }
 
     static class Friend {
