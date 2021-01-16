@@ -16,6 +16,7 @@ import static java.lang.String.format;
 public class App {
     public static void main(String[] args) throws InterruptedException {
         Map<String, String> arguments = CliUtil.parseArguments(args);
+
         if (arguments.get(EXERCISE_ARG) != null) {
             String exercise = arguments.get(EXERCISE_ARG);
             new App().runExercise(Integer.parseInt(exercise));
