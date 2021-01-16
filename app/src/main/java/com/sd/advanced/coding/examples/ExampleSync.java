@@ -81,7 +81,7 @@ public class ExampleSync implements Example {
     }
 
     private void runLockCounter() throws InterruptedException {
-        SynchronizedCounter c = new SynchronizedCounter();
+        LockCounter c = new LockCounter();
 
         for (int i = 0; i < 100; i++) {
             Thread t1 = new Thread(() -> {
@@ -147,21 +147,23 @@ public class ExampleSync implements Example {
     }
 
     private class LockCounter {
-        private long c1 = 0;
-        private long c2 = 0;
-        private Object lock1 = new Object();
-        private Object lock2 = new Object();
+        private long c = 0;
+        private Object lock = new Object();
 
-        public void inc1() {
-            synchronized(lock1) {
-                c1++;
+        public void increment() {
+            synchronized(lock) {
+                c++;
             }
         }
 
-        public void inc2() {
-            synchronized(lock2) {
-                c2++;
+        public void decrement() {
+            synchronized(lock) {
+                c--;
             }
+        }
+
+        public synchronized long value() {
+            return c;
         }
     }
 }
