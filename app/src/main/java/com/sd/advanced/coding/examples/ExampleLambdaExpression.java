@@ -2,6 +2,9 @@ package com.sd.advanced.coding.examples;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class ExampleLambdaExpression implements Example {
     @Override
@@ -12,6 +15,20 @@ public class ExampleLambdaExpression implements Example {
             add(new Person(22, "Theodor", "Merlin", "theodor.merlin@gmail.com"));
             add(new Person(30, "Gustav", "Klaud", "gustav.klaud@gmail.com"));
         }};
+
+        Function<Person, Person> func = (p) -> new Person(
+                p.getAge(),
+                p.getName().substring(0, 1).toUpperCase(),
+                p.getSurname().substring(0, 1).toUpperCase(),
+                p.getEmail()
+        );
+
+        Person.printPersons(
+                roster,
+                (p) -> p.getAge() > 22,
+                func,
+                (p) -> System.out.printf("User initials: %s%s%n", p.getName(), p.getSurname())
+        );
     }
 
     private static class Person {
@@ -63,6 +80,44 @@ public class ExampleLambdaExpression implements Example {
         public void setEmail(String email) {
             this.email = email;
         }
+
+        public static void printPersons(
+                List<Person> roster,
+                Predicate<Person> tester
+        ) {
+            for (Person p : roster) {
+                if (tester.test(p)) {
+                    p.printPerson();
+                }
+            }
+        }
+
+        public static void printPersons(
+                List<Person> roster,
+                Predicate<Person> tester,
+                Consumer<Person> block
+        ) {
+            for (Person p : roster) {
+                if (tester.test(p)) {
+                    block.accept(p);
+                }
+            }
+        }
+
+        public static void printPersons(
+                List<Person> roster,
+                Predicate<Person> tester,
+                Function<Person, Person> mapper,
+                Consumer<Person> block
+        ) {
+            for (Person p : roster) {
+                if (tester.test(p)) {
+                    Person newP = mapper.apply(p);
+                    block.accept(newP);
+                }
+            }
+        }
+
 
         public void printPerson() {
             System.out.println(this);
